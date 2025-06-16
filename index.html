@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Workout Tracker</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Workout">
+    <meta name="theme-color" content="#000000">
+    <meta name="background-color" content="#000000">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iNDAiIGZpbGw9IiMwMDAwMDAiLz4KPHN2ZyB4PSI0NSIgeT0iNDUiIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTIyIDEyYzAtNS41Mi00LjQ4LTEwLTEwLTEwUzIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFoiIHN0cm9rZT0iIzMwZDE1OCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+CjxwYXRoIGQ9Ik04IDEyaDgiIHN0cm9rZT0iIzMwZDE1OCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTEyIDJjNS41MiAwIDEwIDQuNDggMTAgMTBzLTQuNDggMTAtMTAgMTBTMiAxNy41MiAyIDEyczQuNDgtMTAgMTAtMTBaIiBzdHJva2U9IiNmZjNiMzAiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4KPHN2ZyB4PSI2MCIgeT0iNjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTEyIDJjNS41MiAwIDEwIDQuNDggMTAgMTBzLTQuNDggMTAtMTAgMTBTMiAxNy41MiAyIDEyczQuNDgtMTAgMTAtMTBaIiBzdHJva2U9IiMwMDdhZmYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4KPHN2ZyB4PSI3NSIgeT0iNzUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTYgMTJoMTJtLTYtNnY2bTAtNnY2IiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo8L3N2Zz4KPC9zdmc+">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIldvcmtvdXQgVHJhY2tlciIsCiAgInNob3J0X25hbWUiOiAiV29ya291dCIsCiAgImRlc2NyaXB0aW9uIjogIlBlcnNvbmFsIGd5bSB3b3Jrb3V0IHRyYWNrZXIgd2l0aCBhY3Rpdml0eSByaW5ncyIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMDAwMDAwIiwKICAidGhlbWVfY29sb3IiOiAiIzAwMDAwMCIsCiAgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRnd0lpQm9aV2xuYUhROUlqRTRNQ0lpSUhacFpYZENiM2c5SWpBZ01DQXhPREFnTVRnd0lpQm1hV3hzUFNKdWIyNWxJaUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lQZ289IiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWlJSFpwWlhkQ2IzZzlJakFnTUNBMU1USWdOVEV5SWlCbWFXeHNQU0p1YjI1bElpQjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaVBnPT0iLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
+    
+    <style>
+        /* Add this to hide Safari UI when launched from home screen */
+        @media all and (display-mode: standalone) {
+            body {
+                -webkit-user-select: none;
+                -webkit-touch-callout: none;
+            }
+        }
+    </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            background-color: #000000 !important;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+
+
+        .header {
+            padding: 20px 20px 30px;
+        }
+
+        .date-text {
+            font-size: 15px;
+            color: #8e8e93;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .main-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .profile-pic {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #007aff, #00d4ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .workout-tabs {
+            display: flex;
+            padding: 0 20px 20px;
+            gap: 12px;
+        }
+
+        .tab-button {
+            flex: 1;
+            background: #1c1c1e;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 12px;
+            color: #8e8e93;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-button.active {
+            background: #30d158;
+            color: #000000;
+        }
+
+        .card {
+            background: #1c1c1e;
+            border-radius: 12px;
+            margin: 0 20px 16px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .card-subtitle {
+            font-size: 15px;
+            color: #8e8e93;
+            margin-top: 2px;
+        }
+
+        .chevron {
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid #8e8e93;
+            border-top: 2px solid #8e8e93;
+            transform: rotate(45deg);
+        }
+
+        .activity-rings-card {
+            padding: 24px;
+        }
+
+        .rings-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .activity-rings {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+        }
+
+        .activity-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120px;
+            height: 120px;
+        }
+
+        .activity-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .activity-ring circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+        }
+
+        .ring-bg {
+            stroke: rgba(255,255,255,0.1);
+        }
+
+        .ring-move { stroke: #ff3b30; }
+        .ring-exercise { stroke: #30d158; }
+        .ring-stand { stroke: #007aff; }
+
+        .ring-move-bg { stroke: rgba(255,59,48,0.2); }
+        .ring-exercise-bg { stroke: rgba(48,209,88,0.2); }
+        .ring-stand-bg { stroke: rgba(0,122,255,0.2); }
+
+        .rings-stats {
+            flex: 1;
+        }
+
+        .stat-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .stat-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 6px;
+            margin-right: 12px;
+        }
+
+        .stat-icon.move { background: #ff3b30; }
+        .stat-icon.exercise { background: #30d158; }
+        .stat-icon.stand { background: #007aff; }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 17px;
+            color: #ffffff;
+            font-weight: 400;
+        }
+
+        .stat-value {
+            font-size: 17px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .stat-value.move { color: #ff3b30; }
+        .stat-value.exercise { color: #30d158; }
+        .stat-value.stand { color: #007aff; }
+
+        .exercise-card {
+            margin-bottom: 16px;
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .exercise-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .exercise-meta {
+            font-size: 15px;
+            color: #8e8e93;
+        }
+
+        .exercise-icon {
+            font-size: 24px;
+        }
+
+        .sets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .set-ring {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .set-ring:active {
+            transform: scale(0.95);
+        }
+
+        .set-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .set-ring circle {
+            fill: none;
+            stroke-width: 6;
+            stroke-linecap: round;
+        }
+
+        .set-bg {
+            stroke: rgba(255,255,255,0.1);
+        }
+
+        .set-progress {
+            stroke: #30d158;
+            transition: stroke-dasharray 0.3s ease;
+        }
+
+        .set-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .set-ring.completed .set-number {
+            color: #30d158;
+        }
+
+        .progress-summary {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            color: #8e8e93;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cardio-card {
+            background: linear-gradient(135deg, #ff9500, #ff6b00);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cardio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1), transparent 70%);
+            pointer-events: none;
+        }
+
+        .cardio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .cardio-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .cardio-icon {
+            font-size: 24px;
+        }
+
+        .timer-display {
+            font-size: 48px;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 8px;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -2px;
+            position: relative;
+        }
+
+        .timer-subtitle {
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 24px;
+            position: relative;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 16px;
+            border-radius: 12px;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+        }
+
+        .timer-button {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .timer-button:active {
+            transform: scale(0.95);
+            background: rgba(255,255,255,0.3);
+        }
+
+        .sessions-card {
+            display: flex;
+            align-items: center;
+        }
+
+        .session-icon {
+            width: 40px;
+            height: 40px;
+            background: #30d158;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 20px;
+        }
+
+        .session-info {
+            flex: 1;
+        }
+
+        .session-name {
+            font-size: 17px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .session-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #30d158;
+        }
+
+        .session-date {
+            font-size: 13px;
+            color: #8e8e93;
+            margin-top: 4px;
+        }
+
+        .chart-placeholder {
+            height: 60px;
+            margin-top: 16px;
+            background: linear-gradient(to top, rgba(48,209,88,0.3) 0%, rgba(48,209,88,0.1) 50%, transparent 100%);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .reset-card {
+            text-align: center;
+        }
+
+        .reset-button {
+            background: none;
+            border: 1px solid rgba(255,59,48,0.3);
+            color: #ff3b30;
+            padding: 16px 32px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 17px;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .reset-button:active {
+            background: rgba(255,59,48,0.1);
+        }
+
+
+
+
+
+        .content-container {
+            padding-bottom: 40px;
+        }
+
+
+
+        .workout-content {
+            display: none;
+        }
+
+        .workout-content.active {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .sets-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .rings-container {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="header">
+        <div class="date-text" id="current-date">SUNDAY, JUN 15</div>
+        <div class="main-title">Workout</div>
+        <div class="profile-pic">💪</div>
+    </div>
+
+    <div class="workout-tabs">
+        <button class="tab-button active" onclick="switchWorkout('push')">Push</button>
+        <button class="tab-button" onclick="switchWorkout('pull')">Pull</button>
+        <button class="tab-button" onclick="switchWorkout('legs')">Legs</button>
+    </div>
+
+    <div class="content-container">
+        <div class="card activity-rings-card">
+            <div class="card-title">Activity Rings</div>
+            <div class="rings-container">
+                <div class="activity-rings">
+                    <div class="activity-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle class="ring-move-bg" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="0"/>
+                            <circle class="ring-move" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314" id="move-ring"/>
+                        </svg>
+                    </div>
+                    <div class="activity-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle class="ring-exercise-bg" cx="60" cy="60" r="40" stroke-dasharray="251" stroke-dashoffset="0"/>
+                            <circle class="ring-exercise" cx="60" cy="60" r="40" stroke-dasharray="251" stroke-dashoffset="251" id="exercise-ring"/>
+                        </svg>
+                    </div>
+                    <div class="activity-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle class="ring-stand-bg" cx="60" cy="60" r="30" stroke-dasharray="188" stroke-dashoffset="0"/>
+                            <circle class="ring-stand" cx="60" cy="60" r="30" stroke-dasharray="188" stroke-dashoffset="188" id="stand-ring"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="rings-stats">
+                    <div class="stat-row">
+                        <div class="stat-icon move"></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Move</span>
+                            <span class="stat-value move" id="move-stat">0/22 SETS</span>
+                        </div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-icon exercise"></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Exercise</span>
+                            <span class="stat-value exercise" id="exercise-stat">0/30 MIN</span>
+                        </div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-icon stand"></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Stand</span>
+                            <span class="stat-value stand" id="stand-stat">0/12 HRS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Push Workout -->
+        <div id="push-content" class="workout-content active">
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Incline Dumbbell Press</div>
+                        <div class="exercise-meta">4 sets × 8-10 reps</div>
+                    </div>
+                    <div class="exercise-icon">💪</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">4</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Flat Dumbbell Press</div>
+                        <div class="exercise-meta">3 sets × 10-12 reps</div>
+                    </div>
+                    <div class="exercise-icon">🏋️</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Pec Flys</div>
+                        <div class="exercise-meta">3 sets × 12-15 reps</div>
+                    </div>
+                    <div class="exercise-icon">🤲</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Tricep Pushdown</div>
+                        <div class="exercise-meta">3 sets × 12-15 reps</div>
+                    </div>
+                    <div class="exercise-icon">💪</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Overhead Press</div>
+                        <div class="exercise-meta">3 sets × 8-10 reps</div>
+                    </div>
+                    <div class="exercise-icon">🎯</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Lateral Raises</div>
+                        <div class="exercise-meta">3 sets × 15 reps</div>
+                    </div>
+                    <div class="exercise-icon">🔥</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'push')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card cardio-card">
+                <div class="cardio-header">
+                    <div class="cardio-title">HIIT Cardio</div>
+                    <div class="cardio-icon">⚡</div>
+                </div>
+                <div class="timer-display" id="hiit-timer">15:00</div>
+                <div class="timer-subtitle" id="hiit-phase">30s high intensity / 90s recovery</div>
+                <div class="timer-controls">
+                    <button class="timer-button" onclick="startHIITTimer()">Start</button>
+                    <button class="timer-button" onclick="resetTimer('hiit')">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pull Workout -->
+        <div id="pull-content" class="workout-content">
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Lat Pulldown</div>
+                        <div class="exercise-meta">4 sets × 8-10 reps</div>
+                    </div>
+                    <div class="exercise-icon">🎯</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">4</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Mid Row</div>
+                        <div class="exercise-meta">4 sets × 10-12 reps</div>
+                    </div>
+                    <div class="exercise-icon">💪</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">4</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Cable Pullovers</div>
+                        <div class="exercise-meta">3 sets × 12-15 reps</div>
+                    </div>
+                    <div class="exercise-icon">🏋️</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Bicep Curls</div>
+                        <div class="exercise-meta">3 sets × 12-15 reps</div>
+                    </div>
+                    <div class="exercise-icon">💪</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Face Pulls</div>
+                        <div class="exercise-meta">3 sets × 15 reps</div>
+                    </div>
+                    <div class="exercise-icon">🎯</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Reverse Flys</div>
+                        <div class="exercise-meta">3 sets × 15 reps</div>
+                    </div>
+                    <div class="exercise-icon">🔥</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'pull')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card cardio-card">
+                <div class="cardio-header">
+                    <div class="cardio-title">Steady Cardio</div>
+                    <div class="cardio-icon">🚶‍♂️</div>
+                </div>
+                <div class="timer-display" id="steady-timer">25:00</div>
+                <div class="timer-subtitle">Low intensity steady state</div>
+                <div class="timer-controls">
+                    <button class="timer-button" onclick="startTimer('steady')">Start</button>
+                    <button class="timer-button" onclick="resetTimer('steady')">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legs Workout -->
+        <div id="legs-content" class="workout-content">
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Leg Press</div>
+                        <div class="exercise-meta">4 sets × 12-15 reps</div>
+                    </div>
+                    <div class="exercise-icon">🦵</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">4</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Leg Extension</div>
+                        <div class="exercise-meta">3 sets × 15 reps</div>
+                    </div>
+                    <div class="exercise-icon">🏋️</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Leg Curl</div>
+                        <div class="exercise-meta">3 sets × 15 reps</div>
+                    </div>
+                    <div class="exercise-icon">💪</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Walking Lunges</div>
+                        <div class="exercise-meta">3 sets × 20 steps</div>
+                    </div>
+                    <div class="exercise-icon">🚶‍♂️</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Calf Raises</div>
+                        <div class="exercise-meta">4 sets × 20 reps</div>
+                    </div>
+                    <div class="exercise-icon">🔥</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">4</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Cable Oblique Twists</div>
+                        <div class="exercise-meta">3 sets × 15 each side</div>
+                    </div>
+                    <div class="exercise-icon">🌪️</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Crunch Machine</div>
+                        <div class="exercise-meta">3 sets × 20 reps</div>
+                    </div>
+                    <div class="exercise-icon">💪</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Plank Hold</div>
+                        <div class="exercise-meta">3 sets × 45 seconds</div>
+                    </div>
+                    <div class="exercise-icon">⏱️</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-header">
+                    <div>
+                        <div class="exercise-title">Mountain Climbers</div>
+                        <div class="exercise-meta">3 sets × 30 seconds</div>
+                    </div>
+                    <div class="exercise-icon">🏔️</div>
+                </div>
+                <div class="sets-grid">
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">1</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">2</div>
+                    </div>
+                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
+                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
+                        </svg>
+                        <div class="set-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card cardio-card">
+                <div class="cardio-header">
+                    <div class="cardio-title">Cool-down</div>
+                    <div class="cardio-icon">🧘‍♂️</div>
+                </div>
+                <div class="timer-display" id="cooldown-timer">15:00</div>
+                <div class="timer-subtitle">Low intensity recovery</div>
+                <div class="timer-controls">
+                    <button class="timer-button" onclick="startTimer('cooldown')">Start</button>
+                    <button class="timer-button" onclick="resetTimer('cooldown')">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card reset-card">
+            <button class="reset-button" onclick="resetAllProgress()">Reset All Progress</button>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        // Initialize data
+        const totalSets = { push: 22, pull: 23, legs: 29 };
+        let completedSets = { push: 0, pull: 0, legs: 0 };
+
+        // Update current date
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                month: 'short', 
+                day: 'numeric' 
+            };
+            const formattedDate = now.toLocaleDateString('en-US', options).toUpperCase();
+            document.getElementById('current-date').textContent = formattedDate;
+        }
+
+        // Schedule next date update
+        function scheduleNextDateUpdate() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            
+            const msUntilMidnight = tomorrow.getTime() - now.getTime();
+            
+            setTimeout(() => {
+                updateCurrentDate();
+                scheduleNextDateUpdate(); // Schedule the next update
+            }, msUntilMidnight);
+        }
+
+        // Update date immediately and schedule future updates
+        updateCurrentDate();
+        scheduleNextDateUpdate();
+
+        // Timer functionality
+        const timers = {
+            hiit: { duration: 15 * 60, current: 15 * 60, interval: null },
+            steady: { duration: 25 * 60, current: 25 * 60, interval: null },
+            cooldown: { duration: 15 * 60, current: 15 * 60, interval: null }
+        };
+
+        // HIIT interval timer
+        let hiitState = {
+            totalTime: 15 * 60,
+            currentTotal: 15 * 60,
+            intervalTime: 30,
+            currentInterval: 30,
+            isHighIntensity: true,
+            isRunning: false,
+            interval: null
+        };
+
+        function switchWorkout(workout) {
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.workout-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to selected tab and content
+            event.target.classList.add('active');
+            document.getElementById(workout + '-content').classList.add('active');
+            
+            updateActivityRings();
+        }
+
+        function toggleSet(setElement, workout) {
+            setElement.classList.toggle('completed');
+            
+            const progressCircle = setElement.querySelector('.set-progress');
+            const isCompleted = setElement.classList.contains('completed');
+            
+            if (isCompleted) {
+                progressCircle.style.strokeDashoffset = '0';
+                completedSets[workout]++;
+            } else {
+                progressCircle.style.strokeDashoffset = '88';
+                completedSets[workout]--;
+            }
+            
+            updateActivityRings();
+        }
+
+        function updateActivityRings() {
+            const currentWorkout = document.querySelector('.workout-content.active').id.replace('-content', '');
+            const completed = completedSets[currentWorkout];
+            const total = totalSets[currentWorkout];
+            const percentage = (completed / total) * 100;
+            
+            // Update Move ring (main progress)
+            const moveRing = document.getElementById('move-ring');
+            const moveCircumference = 314;
+            const moveOffset = moveCircumference - (percentage / 100) * moveCircumference;
+            moveRing.style.strokeDashoffset = moveOffset;
+            
+            // Update Exercise ring (simulated)
+            const exerciseRing = document.getElementById('exercise-ring');
+            const exerciseCircumference = 251;
+            const exerciseOffset = exerciseCircumference - (Math.min(percentage * 0.8, 100) / 100) * exerciseCircumference;
+            exerciseRing.style.strokeDashoffset = exerciseOffset;
+            
+            // Update Stand ring (simulated)
+            const standRing = document.getElementById('stand-ring');
+            const standCircumference = 188;
+            const standOffset = standCircumference - (Math.min(percentage * 0.6, 100) / 100) * standCircumference;
+            standRing.style.strokeDashoffset = standOffset;
+            
+            // Update stats
+            document.getElementById('move-stat').textContent = `${completed}/${total} SETS`;
+            document.getElementById('exercise-stat').textContent = `${Math.round(percentage * 0.3)}/30 MIN`;
+            document.getElementById('stand-stat').textContent = `${Math.round(percentage * 0.12)}/12 HRS`;
+        }
+
+
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function startHIITTimer() {
+            if (hiitState.interval) clearInterval(hiitState.interval);
+            
+            hiitState.isRunning = true;
+            const timerElement = document.getElementById('hiit-timer');
+            const phaseElement = document.getElementById('hiit-phase');
+            
+            hiitState.interval = setInterval(() => {
+                hiitState.currentInterval--;
+                hiitState.currentTotal--;
+                
+                // Update display with total time remaining
+                timerElement.textContent = formatTime(hiitState.currentTotal);
+                
+                // Update phase display
+                if (hiitState.isHighIntensity) {
+                    phaseElement.textContent = `HIGH INTENSITY - ${hiitState.currentInterval}s`;
+                    phaseElement.style.color = '#ff3b30';
+                } else {
+                    phaseElement.textContent = `RECOVERY - ${hiitState.currentInterval}s`;
+                    phaseElement.style.color = '#30d158';
+                }
+                
+                // Check if current interval is complete
+                if (hiitState.currentInterval <= 0) {
+                    // Switch between high intensity and recovery
+                    hiitState.isHighIntensity = !hiitState.isHighIntensity;
+                    hiitState.intervalTime = hiitState.isHighIntensity ? 30 : 90;
+                    hiitState.currentInterval = hiitState.intervalTime;
+                }
+                
+                // Check if total workout is complete
+                if (hiitState.currentTotal <= 0) {
+                    clearInterval(hiitState.interval);
+                    timerElement.textContent = "Complete!";
+                    phaseElement.textContent = "HIIT Workout Complete!";
+                    phaseElement.style.color = '#ffffff';
+                    hiitState.isRunning = false;
+                }
+            }, 1000);
+        }
+
+        function startTimer(type) {
+            if (type === 'hiit') {
+                startHIITTimer();
+                return;
+            }
+            
+            if (timers[type].interval) clearInterval(timers[type].interval);
+            
+            const timerElement = document.getElementById(`${type}-timer`);
+            
+            timers[type].interval = setInterval(() => {
+                timers[type].current--;
+                timerElement.textContent = formatTime(timers[type].current);
+                
+                if (timers[type].current <= 0) {
+                    clearInterval(timers[type].interval);
+                    timerElement.textContent = "Complete!";
+                }
+            }, 1000);
+        }
+
+        function resetTimer(type) {
+            if (type === 'hiit') {
+                if (hiitState.interval) clearInterval(hiitState.interval);
+                hiitState.currentTotal = hiitState.totalTime;
+                hiitState.currentInterval = 30;
+                hiitState.isHighIntensity = true;
+                hiitState.isRunning = false;
+                document.getElementById('hiit-timer').textContent = formatTime(hiitState.totalTime);
+                document.getElementById('hiit-phase').textContent = '30s high intensity / 90s recovery';
+                document.getElementById('hiit-phase').style.color = '#ffffff';
+                return;
+            }
+            
+            if (timers[type].interval) clearInterval(timers[type].interval);
+            timers[type].current = timers[type].duration;
+            document.getElementById(`${type}-timer`).textContent = formatTime(timers[type].current);
+        }
+
+        function resetAllProgress() {
+            document.querySelectorAll('.set-ring').forEach(ring => {
+                ring.classList.remove('completed');
+                const progressCircle = ring.querySelector('.set-progress');
+                progressCircle.style.strokeDashoffset = '88';
+            });
+            
+            completedSets = { push: 0, pull: 0, legs: 0 };
+            updateActivityRings();
+        }
+
+        // Initialize
+        updateActivityRings();
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'workout-tracker-v1';
+                    const urlsToCache = ['/'];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    return response || fetch(event.request);
+                                })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        // Add to Home Screen prompt (for Android)
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+    </script>
+</body>
+</html>
