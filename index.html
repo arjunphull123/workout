@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <title>Workout Tracker</title>
     
     <!-- PWA Meta Tags -->
@@ -28,6 +28,7 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: env(safe-area-inset-top);
+  padding-bottom: 20px;
   background: linear-gradient(to bottom, #000, rgba(0,0,0,0));
   pointer-events: none;
   z-index: 10000;
@@ -395,8 +396,8 @@ body {
 
         .fullscreen-overlay .exit-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 40px;
+            right: 40px;
             background: rgba(0,0,0,0.5);
             border: none;
             color: white;
