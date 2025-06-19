@@ -28,7 +28,7 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: env(safe-area-inset-top);
-  padding-bottom: 20px;
+  padding-bottom: 60px;
   background: linear-gradient(to bottom, #000, rgba(0,0,0,0));
   pointer-events: none;
   z-index: 10000;
@@ -81,6 +81,7 @@ body {
 
         .header {
             padding: 20px 20px 30px;
+            padding-top: 60px;
         }
 
         .date-text {
@@ -731,7 +732,6 @@ body {
     <div class="header">
         <div class="date-text" id="current-date">SUNDAY, JUN 15</div>
         <div class="main-title" id="main-title">Good morning, Arjun</div>
-        <div class="profile-pic">💪</div>
     </div>
 
     <div class="workout-tabs">
@@ -1649,13 +1649,14 @@ body {
 
     <!-- Full-screen overlay for any timer -->
     <div id="fullscreen-overlay" class="fullscreen-overlay">
-    <button class="exit-btn" onclick="closeOverlay()">×</button>
-    <div id="fullscreen-timer" class="timer-display">00:00</div>
-    <div id="fullscreen-hiit-phase" class="timer-subtitle"></div>
-    <div class="timer-controls">
-        <button class="timer-button" onclick="startTimer(currentFullscreenTimer)">Start</button>
-        <button class="timer-button" onclick="resetTimer(currentFullscreenTimer)">Reset</button>
-    </div>
+
+        <div id="fullscreen-timer" class="timer-display">00:00</div>
+        <div id="fullscreen-hiit-phase" class="timer-subtitle"></div>
+        <div class="timer-controls">
+            <button class="timer-button" onclick="startTimer(currentFullscreenTimer)">Start</button>
+            <button class="timer-button" onclick="resetTimer(currentFullscreenTimer)">Reset</button>
+            <button class="timer-button" onclick="closeOverlay()">Close</button>
+        </div>
     </div>
 
 
