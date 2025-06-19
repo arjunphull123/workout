@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <title>Workout Tracker</title>
     
     <!-- PWA Meta Tags -->
@@ -19,6 +19,37 @@
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIldvcmtvdXQgVHJhY2tlciIsCiAgInNob3J0X25hbWUiOiAiV29ya291dCIsCiAgImRlc2NyaXB0aW9uIjogIlBlcnNvbmFsIGd5bSB3b3Jrb3V0IHRyYWNrZXIgd2l0aCBhY3Rpdml0eSByaW5ncyIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMDAwMDAwIiwKICAidGhlbWVfY29sb3IiOiAiIzAwMDAwMCIsCiAgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRnd0lpQm9aV2xuYUhROUlqRTRNQ0lpSUhacFpYZENiM2c5SWpBZ01DQXhPREFnTVRnd0lpQm1hV3hzUFNKdWIyNWxJaUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lQZz09IiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWlJSFpwWlhkQ2IzZzlJakFnTUNBMU1USWdOVEV5SWlCbWFXeHNQU0p1YjI1bElpQjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaVBnPT0iLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
 
 <style>
+/* push content below the notch on iOS */
+body {
+  padding-top: env(safe-area-inset-top);
+}
+
+.status-bar-protector {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: env(safe-area-inset-top);
+  background: linear-gradient(to bottom, #000, rgba(0,0,0,0));
+  pointer-events: none;
+  z-index: 10000;
+}
+
+/* “Mark as Complete” button */
+.mark-complete {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  padding: 8px 16px;
+  margin-top: 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.mark-complete:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+
         /* Add this to hide Safari UI when launched from home screen */
         @media all and (display-mode: standalone) {
             body {
@@ -207,7 +238,7 @@
 
         .sets-grid {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             gap: 12px;
             margin-bottom: 16px;
             flex-wrap: wrap;
@@ -692,6 +723,8 @@
     </style>
 </head>
 <body>
+<!-- ↓ iOS notch / Dynamic-Island safe-area protector -->
+<div class="status-bar-protector"></div>
 
 
     <div class="header">
@@ -1222,6 +1255,7 @@
                 <div class="timer-controls">
                     <button class="timer-button" onclick="startTimer('steady')">Start</button>
                     <button class="timer-button" onclick="resetTimer('steady')">Reset</button>
+                    <button class="timer-button" onclick="markComplete('steady')">Done</button>
                 </div>
             </div>
         </div>
@@ -1589,6 +1623,7 @@
                 <div class="timer-controls">
                     <button class="timer-button" onclick="startTimer('cooldown')">Start</button>
                     <button class="timer-button" onclick="resetTimer('cooldown')">Reset</button>
+                    <button class="timer-button" onclick="markComplete('cooldown')">Done</button>
                 </div>
             </div>
         </div>
@@ -2189,98 +2224,86 @@
             }
         }
 
-        function startTimer(type) {
-            if (type === 'hiit') {
-                startHIITTimer();
-                return;
-            }
-            
-            // Request notification permission on first timer start
-            requestNotificationPermission();
-            
-            if (timers[type].interval) clearInterval(timers[type].interval);
-            
-            const timerElement = document.getElementById(`${type}-timer`);
-            
-            timers[type].interval = setInterval(() => {
-                timers[type].current--;
-                const timeDisplay = formatTime(timers[type].current);
-                timerElement.textContent = timeDisplay;
-                
-                // Update fullscreen if active
-                if (currentFullscreenTimer === type) {
-                    const fullscreenTimer = document.getElementById('fullscreen-timer');
-                    if (fullscreenTimer) fullscreenTimer.textContent = timeDisplay;
-                }
-                
-                if (timers[type].current <= 0) {
-                    clearInterval(timers[type].interval);
-                    timerElement.textContent = "Complete!";
-                    
-                    // Send notification based on timer type
-                    let message;
-                    if (type === 'steady') {
-                        message = 'Your 25-minute steady cardio session is complete! 🚶‍♂️';
-                    } else if (type === 'cooldown') {
-                        message = 'Your 15-minute cool-down session is complete! 🧘‍♂️';
-                    }
-                    
-                    if (message) {
-                        sendTimerNotification(type, message);
-                    }
-                    
-                    if (currentFullscreenTimer === type) {
-                        const fullscreenTimer = document.getElementById('fullscreen-timer');
-                        if (fullscreenTimer) fullscreenTimer.textContent = "Complete!";
-                    }
-                }
-            }, 1000);
-        }
+// ----------------------------------------------------------------------------
+// Background-safe timer + “Mark as Complete”
+// ----------------------------------------------------------------------------
+const _timers = {
+  hiit: 15*60,
+  steady: 25*60,
+  cooldown: 15*60
+};
+const _running = {};
 
-        function resetTimer(type) {
-            if (type === 'hiit') {
-                if (hiitState.interval) clearInterval(hiitState.interval);
-                hiitState.currentTotal = hiitState.totalTime;
-                hiitState.currentInterval = 30;
-                hiitState.isHighIntensity = true;
-                hiitState.isRunning = false;
-                
-                // Reset display
-                const timerElement = document.getElementById('hiit-timer');
-                const phaseElement = document.getElementById('hiit-phase');
-                const cardElement = document.getElementById('hiit-card');
-                
-                timerElement.textContent = formatTime(hiitState.totalTime);
-                phaseElement.textContent = '30s high intensity / 90s recovery';
-                
-                // Reset card style
-                cardElement.className = 'card cardio-card';
-                
-                // Reset fullscreen if active
-                if (currentFullscreenTimer === 'hiit') {
-                    const fullscreenTimer = document.getElementById('fullscreen-timer');
-                    const fullscreenPhase = document.getElementById('fullscreen-hiit-phase');
-                    const fullscreenOverlay = document.getElementById('fullscreen-overlay');
-                    
-                    if (fullscreenTimer) fullscreenTimer.textContent = formatTime(hiitState.totalTime);
-                    if (fullscreenPhase) fullscreenPhase.textContent = '30s high intensity / 90s recovery';
-                    fullscreenOverlay.style.background = 'linear-gradient(135deg, #ff9500, #ff6b00)';
-                    fullscreenOverlay.classList.remove('high-intensity', 'recovery', 'flash');
-                }
-                return;
-            }
-            
-            if (timers[type].interval) clearInterval(timers[type].interval);
-            timers[type].current = timers[type].duration;
-            const timerElement = document.getElementById(`${type}-timer`);
-            timerElement.textContent = formatTime(timers[type].current);
-            
-            // Update fullscreen if active
-            if (currentFullscreenTimer === type) {
-                const fullscreenTimer = document.getElementById('fullscreen-timer');
-                if (fullscreenTimer) fullscreenTimer.textContent = formatTime(timers[type].current);
-            }
-        }
+function startTimer(type) {
+  if (type==='hiit') return startHIITTimer();
+
+  // clear existing
+  if (_running[type]) clearInterval(_running[type].interval);
+
+  const duration = _timers[type];
+  const endTime = Date.now() + duration*1000;
+  const display = document.getElementById(`${type}-timer`);
+
+  function tick() {
+    const secs = Math.round((endTime - Date.now())/1000);
+    if (secs>=0) {
+      display.textContent = formatTime(secs);
+      _running[type].raf = requestAnimationFrame(tick);
+    } else {
+      finish();
+    }
+  }
+
+  function finish() {
+    cancelAnimationFrame(_running[type].raf);
+    display.textContent = 'Complete!';
+    sendTimerNotification(type,
+      type==='steady'
+        ? 'Your 25-minute steady session is complete! 🚶‍♂️'
+        : 'Your 15-minute cool-down is complete! 🧘‍♂️'
+    );
+  }
+
+  // store handles
+  _running[type] = {
+    raf: null,
+    interval: null
+  };
+
+  // wire background catch-up
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && _running[type]) tick();
+  });
+
+  // kick off
+  tick();
+}
+
+function resetTimer(type) {
+  if (_running[type]) {
+    cancelAnimationFrame(_running[type].raf);
+    clearInterval(_running[type].interval);
+  }
+  const display = document.getElementById(`${type}-timer`);
+  display.textContent = formatTime(_timers[type]);
+}
+
+// New helper for your “Mark as Complete” buttons
+function markComplete(type) {
+  if (_running[type]) {
+    cancelAnimationFrame(_running[type].raf);
+    clearInterval(_running[type].interval);
+    document.getElementById(`${type}-timer`).textContent = 'Complete!';
+  }
+}
+
+// Helper to format MM:SS
+function formatTime(sec) {
+  const m = Math.floor(sec/60).toString().padStart(2,'0');
+  const s = (sec%60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+
 
         function resetAllProgress() {
             document.querySelectorAll('.set-ring').forEach(ring => {
