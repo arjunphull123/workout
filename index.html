@@ -991,7 +991,10 @@ body {
                 <div class="timer-display" id="hiit-timer">15:00</div>
                 <div class="timer-subtitle" id="hiit-phase">30s high intensity / 90s recovery</div>
                 <div class="timer-controls">
-                    <button class="timer-button" onclick="startHIITTimer()">Start</button>
+                    <button id="hiit-btn" class="timer-button" onclick="toggleHIITTimer()">
+                    Start
+                    </button>
+
                     <button class="timer-button" onclick="resetTimer('hiit')">Reset</button>
                 </div>
             </div>
@@ -1254,7 +1257,9 @@ body {
                 <div class="timer-display" id="steady-timer">25:00</div>
                 <div class="timer-subtitle">Low intensity steady state</div>
                 <div class="timer-controls">
-                    <button class="timer-button" onclick="startTimer('steady')">Start</button>
+                    <button id="steady-btn" class="timer-button" onclick="toggleTimer('steady')">
+                    Start
+                    </button>
                     <button class="timer-button" onclick="resetTimer('steady')">Reset</button>
                     <button class="timer-button" onclick="markComplete('steady')">Done</button>
                 </div>
@@ -1545,71 +1550,49 @@ body {
                 </div>
             </div>
 
-            <div class="card exercise-card">
-                <div class="exercise-header">
-                    <div>
-                        <div class="exercise-title">Plank Hold</div>
-                        <div class="exercise-meta">3 sets × 45 seconds</div>
-                    </div>
-                    <div class="exercise-icon">⏱️</div>
-                </div>
-                <div class="sets-grid">
-                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
-                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
-                        </svg>
-                        <div class="set-number">1</div>
-                    </div>
-                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
-                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
-                        </svg>
-                        <div class="set-number">2</div>
-                    </div>
-                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
-                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
-                        </svg>
-                        <div class="set-number">3</div>
-                    </div>
-                </div>
-            </div>
+<!-- Plank Interval Card (6 min total) -->
+<div class="card cardio-card" id="plank-card">
+  <div class="cardio-header">
+    <div class="cardio-title">Plank Hold</div>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <div class="cardio-icon">🧘‍♂️</div>
+      <!-- fullscreen removed -->
+    </div>
+  </div>
+  <div class="timer-display" id="plank-timer">06:00</div>
+  <div class="timer-subtitle" id="plank-phase">
+    30s high intensity / 90s recovery
+  </div>
+  <div class="timer-controls">
+    <button id="plank-btn" class="timer-button" onclick="togglePlankTimer()">
+    Start
+    </button>
+    <button class="timer-button" onclick="resetPlankTimer()">Reset</button>
+    <button class="timer-button" onclick="markComplete('plank')">Done</button>
+  </div>
+</div>
 
-            <div class="card exercise-card">
-                <div class="exercise-header">
-                    <div>
-                        <div class="exercise-title">Mountain Climbers</div>
-                        <div class="exercise-meta">3 sets × 30 seconds</div>
-                    </div>
-                    <div class="exercise-icon">🏔️</div>
-                </div>
-                <div class="sets-grid">
-                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
-                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
-                        </svg>
-                        <div class="set-number">1</div>
-                    </div>
-                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
-                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
-                        </svg>
-                        <div class="set-number">2</div>
-                    </div>
-                    <div class="set-ring" onclick="toggleSet(this, 'legs')">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="set-bg" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="0"/>
-                            <circle class="set-progress" cx="18" cy="18" r="14" stroke-dasharray="88" stroke-dashoffset="88"/>
-                        </svg>
-                        <div class="set-number">3</div>
-                    </div>
-                </div>
-            </div>
+<!-- Mountain Climbers Interval Card (6 min total) -->
+<div class="card cardio-card" id="mc-card">
+  <div class="cardio-header">
+    <div class="cardio-title">Mountain Climbers</div>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <div class="cardio-icon">🏔️</div>
+    </div>
+  </div>
+  <div class="timer-display" id="mc-timer">06:00</div>
+  <div class="timer-subtitle" id="mc-phase">
+    30s high intensity / 90s recovery
+  </div>
+  <div class="timer-controls">
+    <button id="mc-btn" class="timer-button" onclick="toggleMCTimer()">
+    Start
+    </button>
+    <button class="timer-button" onclick="resetMCTimer()">Reset</button>
+    <button class="timer-button" onclick="markComplete('mc')">Done</button>
+  </div>
+</div>
+
 
             <div class="card cardio-card" id="cooldown-card">
                 <div class="cardio-header">
@@ -1622,7 +1605,9 @@ body {
                 <div class="timer-display" id="cooldown-timer">15:00</div>
                 <div class="timer-subtitle">Low intensity recovery</div>
                 <div class="timer-controls">
-                    <button class="timer-button" onclick="startTimer('cooldown')">Start</button>
+                    <button id="cooldown-btn" class="timer-button" onclick="toggleTimer('cooldown')">
+                    Start
+                    </button>
                     <button class="timer-button" onclick="resetTimer('cooldown')">Reset</button>
                     <button class="timer-button" onclick="markComplete('cooldown')">Done</button>
                 </div>
@@ -1713,6 +1698,64 @@ body {
         overlay.classList.remove('show', 'high-intensity', 'recovery', 'flash');
         currentFullscreenTimer = null;
         }
+
+
+        // ——— Generic Start/Pause for steady & cooldown ———
+        function toggleTimer(type) {
+        if (_running[type]) {
+            // pause
+            cancelAnimationFrame(_running[type].raf);
+            clearInterval(_running[type].interval);
+            delete _running[type];
+            document.getElementById(`${type}-btn`).textContent = 'Start';
+        } else {
+            // start
+            startTimer(type);
+            document.getElementById(`${type}-btn`).textContent = 'Pause';
+        }
+        }
+
+        // ——— HIIT Start/Pause ———
+        function toggleHIITTimer() {
+        if (hiitState.isRunning) {
+            // pause
+            clearInterval(hiitState.interval);
+            hiitState.isRunning = false;
+            document.getElementById('hiit-btn').textContent = 'Start';
+        } else {
+            startHIITTimer();
+            hiitState.isRunning = true;
+            document.getElementById('hiit-btn').textContent = 'Pause';
+        }
+        }
+
+        // ——— Plank & MC Start/Pause ———
+       function togglePlankTimer() {
+        const btn = document.getElementById('plank-btn');
+        if (plankState.interval) {
+            // 🔴 pause
+            clearInterval(plankState.interval);
+            plankState.interval = null;
+            btn.textContent = 'Start';
+        } else {
+            // ▶️ resume
+            runPlankTimer();
+            btn.textContent = 'Pause';
+        }
+        }
+
+        function toggleMCTimer() {
+        const btn = document.getElementById('mc-btn');
+        if (mcState.interval) {
+            clearInterval(mcState.interval);
+            mcState.interval = null;
+            btn.textContent = 'Start';
+        } else {
+            runMCTimer();
+            btn.textContent = 'Pause';
+        }
+        }
+
 
 
         // Initialize data
@@ -2271,6 +2314,144 @@ body {
             }, 1000);
         }
 
+// ────────────── Plank (6 min) ──────────────
+let plankState = {
+  total: 6*60,
+  leftTotal: 6*60,
+  leftPhase: 30,
+  onDuration: 30,
+  offDuration: 90,
+  isHigh: true,
+  interval: null
+};
+
+// ─── Plank ───
+// 1️⃣ init only
+function startPlankTimer() {
+  clearInterval(plankState.interval);
+  plankState.leftTotal = plankState.total;
+  plankState.leftPhase = plankState.onDuration;
+  plankState.isHigh = true;
+  updatePlankUI();
+}
+// 2️⃣ extract the ticking logic
+function runPlankTimer() {
+  plankState.interval = setInterval(() => {
+    plankState.leftPhase--;
+    plankState.leftTotal--;
+    if (plankState.leftPhase < 0) {
+      plankState.isHigh = !plankState.isHigh;
+      plankState.leftPhase = plankState.isHigh
+        ? plankState.onDuration
+        : plankState.offDuration;
+      flashCard('plank');
+    }
+    updatePlankUI();
+    if (plankState.leftTotal < 0) {
+      clearInterval(plankState.interval);
+      plankState.interval = null;
+      document.getElementById('plank-timer').textContent = 'Complete!';
+      document.getElementById('plank-phase').textContent = '';
+      document.getElementById('plank-btn').textContent = 'Start';
+    }
+  }, 1000);
+}
+
+
+
+function resetPlankTimer() {
+  clearInterval(plankState.interval);
+  plankState.leftTotal = plankState.total;
+  plankState.leftPhase = plankState.onDuration;
+  plankState.isHigh = true;
+  updatePlankUI();
+}
+
+function updatePlankUI() {
+  const tm = document.getElementById('plank-timer');
+  const ph = document.getElementById('plank-phase');
+  const cd = document.getElementById('plank-card');
+  const m = String(Math.floor(plankState.leftTotal/60)).padStart(2,'0');
+  const s = String(plankState.leftTotal%60).padStart(2,'0');
+  tm.textContent = `${m}:${s}`;
+  ph.textContent = plankState.isHigh
+    ? `HIGH INTENSITY - ${plankState.leftPhase}s`
+    : `RECOVERY - ${plankState.leftPhase}s`;
+  cd.classList.toggle('high-intensity', plankState.isHigh);
+  cd.classList.toggle('recovery', !plankState.isHigh);
+}
+
+// ───────────── Mountain Climbers (6 min) ─────────────
+let mcState = {
+  total: 6*60,
+  leftTotal: 6*60,
+  leftPhase: 30,
+  onDuration: 30,
+  offDuration: 90,
+  isHigh: true,
+  interval: null
+};
+
+// ─── Mountain Climbers ───
+function startMCTimer() {
+  clearInterval(mcState.interval);
+  mcState.leftTotal = mcState.total;
+  mcState.leftPhase = mcState.onDuration;
+  mcState.isHigh = true;
+  updateMCUI();
+}
+function runMCTimer() {
+  mcState.interval = setInterval(() => {
+    mcState.leftPhase--;
+    mcState.leftTotal--;
+    if (mcState.leftPhase < 0) {
+      mcState.isHigh = !mcState.isHigh;
+      mcState.leftPhase = mcState.isHigh
+        ? mcState.onDuration
+        : mcState.offDuration;
+      flashCard('mc');
+    }
+    updateMCUI();
+    if (mcState.leftTotal < 0) {
+      clearInterval(mcState.interval);
+      mcState.interval = null;
+      document.getElementById('mc-timer').textContent = 'Complete!';
+      document.getElementById('mc-phase').textContent = '';
+      document.getElementById('mc-btn').textContent = 'Start';
+    }
+  }, 1000);
+}
+
+function resetMCTimer() {
+  clearInterval(mcState.interval);
+  mcState.leftTotal = mcState.total;
+  mcState.leftPhase = mcState.onDuration;
+  mcState.isHigh = true;
+  updateMCUI();
+}
+
+function updateMCUI() {
+  const tm = document.getElementById('mc-timer');
+  const ph = document.getElementById('mc-phase');
+  const cd = document.getElementById('mc-card');
+  const m = String(Math.floor(mcState.leftTotal/60)).padStart(2,'0');
+  const s = String(mcState.leftTotal%60).padStart(2,'0');
+  tm.textContent = `${m}:${s}`;
+  ph.textContent = mcState.isHigh
+    ? `HIGH INTENSITY - ${mcState.leftPhase}s`
+    : `RECOVERY - ${mcState.leftPhase}s`;
+  cd.classList.toggle('high-intensity', mcState.isHigh);
+  cd.classList.toggle('recovery', !mcState.isHigh);
+}
+
+// ───────────── shared flash helper ─────────────
+function flashCard(type) {
+  const cd = document.getElementById(`${type}-card`);
+  cd.classList.add('flash');
+  setTimeout(() => cd.classList.remove('flash'), 500);
+}
+
+
         function updateHIITCardStyle(element, isHighIntensity) {
             // Remove existing classes
             element.classList.remove('high-intensity', 'recovery');
@@ -2371,15 +2552,25 @@ function formatTime(sec) {
 
 
         function resetAllProgress() {
-            document.querySelectorAll('.set-ring').forEach(ring => {
-                ring.classList.remove('completed');
-                const progressCircle = ring.querySelector('.set-progress');
-                progressCircle.style.strokeDashoffset = '88';
-            });
-            
-            completedSets = { push: 0, pull: 0, legs: 0 };
+        // 1️⃣ figure out which workout is showing
+        const currentWorkout = document
+            .querySelector('.workout-content.active')
+            .id.replace('-content','');
 
+        // 2️⃣ clear only that workout’s rings
+        document
+            .querySelectorAll(`.set-ring[onclick*="'${currentWorkout}'"]`)
+            .forEach(ring => {
+            ring.classList.remove('completed');
+            ring.querySelector('.set-progress').style.strokeDashoffset = '88';
+            });
+
+        // 3️⃣ reset its counter & localStorage model
+        completedSets[currentWorkout] = 0;
+        workoutProgress[currentWorkout] = [];
+        saveProgress(workoutProgress);
         }
+
 
         // Initialize
 
