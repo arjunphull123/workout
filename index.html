@@ -1661,6 +1661,24 @@ body {
 
 
     <script>
+        // Load or clear yesterday’s progress
+        function loadProgress() {
+        const today = new Date().toISOString().slice(0,10);
+        const lastDate = localStorage.getItem('lastProgressDate');
+        if (lastDate !== today) {
+            localStorage.removeItem('workoutProgress');
+            localStorage.setItem('lastProgressDate', today);
+        }
+        return JSON.parse(
+            localStorage.getItem('workoutProgress') ||
+            JSON.stringify({ push: [], pull: [], legs: [] })
+        );
+        }
+
+        function saveProgress(progress) {
+        localStorage.setItem('workoutProgress', JSON.stringify(progress));
+        }
+
 
         function openOverlay(type) {
         currentFullscreenTimer = type;
@@ -1950,11 +1968,23 @@ body {
             
             const msUntilMidnight = tomorrow.getTime() - now.getTime();
             
-            setTimeout(() => {
+              setTimeout(() => {
                 updateCurrentDate();
                 updateGreeting();
-                scheduleNextDateUpdate(); // Schedule the next update
+
+                // ▶️ Daily reset of progress
+                workoutProgress = loadProgress();   // clears if date changed
+                // clear all ring UI & counters
+                document.querySelectorAll('.set-ring.completed').forEach(el => {
+                el.classList.remove('completed');
+                el.querySelector('.set-progress').style.strokeDashoffset = '88';
+                });
+                completedSets = { push: 0, pull: 0, legs: 0 };
+                saveProgress(workoutProgress);
+
+                scheduleNextDateUpdate();
             }, msUntilMidnight);
+
         }
 
         // Schedule greeting updates at time boundaries
@@ -1991,11 +2021,27 @@ body {
         // Update date immediately and schedule future updates
         updateCurrentDate();
         updateGreeting();
+        loadAllWeights()
         scheduleNextDateUpdate();
         scheduleGreetingUpdates();
 
-        // Load saved weights
-        loadAllWeights();
+        // on load: pick up last‐viewed tab (default to 'push')
+        const last = localStorage.getItem('lastWorkout') || 'push';
+        switchWorkout(last);
+
+        // ▶️ Rehydrate completed-set rings from localStorage
+        let workoutProgress = loadProgress();
+        Object.entries(workoutProgress).forEach(([wk, arr]) => {
+        document.querySelectorAll(`.set-ring[onclick*="'${wk}'"]`)
+            .forEach((el, idx) => {
+            if (arr[idx]) {
+                el.classList.add('completed');
+                el.querySelector('.set-progress').style.strokeDashoffset = '0';
+                completedSets[wk]++;           // keep your counters in sync
+            }
+            });
+        });
+
 
         // Timer functionality
         const timers = {
@@ -2015,15 +2061,24 @@ body {
             interval: null
         };
 
+        // ←— REPLACE THIS ENTIRE FUNCTION
         function switchWorkout(workout) {
-            // Remove active class from all tabs and content
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.workout-content').forEach(content => content.classList.remove('active'));
-            
-            // Add active class to selected tab and content
-            event.target.classList.add('active');
-            document.getElementById(workout + '-content').classList.add('active');
+          // 1. clear all active states
+          document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+          document.querySelectorAll('.workout-content').forEach(c => c.classList.remove('active'));
+        
+          // 2. activate the correct tab button
+          const button = document.querySelector(`.tab-button[onclick="switchWorkout('${workout}')"]`);
+          if (button) button.classList.add('active');
+        
+          // 3. show the correct content panel
+          const panel = document.getElementById(`${workout}-content`);
+          if (panel) panel.classList.add('active');
+        
+          // 4. save for next time
+          localStorage.setItem('lastWorkout', workout);
         }
+
 
         function toggleSet(setElement, workout) {
             setElement.classList.toggle('completed');
@@ -2042,7 +2097,15 @@ body {
                 progressCircle.style.strokeDashoffset = '88';
                 completedSets[workout]--;
             }
-        }
+            // ▶️ Update our in-memory model
+            workoutProgress[workout] = Array.from(
+                document.querySelectorAll(`.set-ring[onclick*="'${workout}'"]`)
+            ).map(el => el.classList.contains('completed'));
+
+            // ▶️ Persist it
+            saveProgress(workoutProgress);
+            }
+
 
         function startRestTimer(exerciseCard) {
             // Remove any existing timer for this exercise
